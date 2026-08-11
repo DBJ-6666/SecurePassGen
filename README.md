@@ -1,51 +1,158 @@
+# SecurePassGen
+
+A single-file, zero-dependency desktop password tool.
+
+- **Cryptographically secure** password generation (Python `secrets` module)
+- **Password strength checker** (length, character variety, common pattern detection)
+- **One-click copy** to clipboard
+- **Clean GUI** built with tkinter
+- **Batch generation** — 1–50 passwords at once
+
+## Quick Start
+
+```bash
+git clone https://github.com/DBJ-6666/SecurePassGen.git
+cd SecurePassGen
+python3 main.py
+```
+
+Requires **Python 3.6+**. No external dependencies.
+
+> **Linux users:** if tkinter is missing, run `sudo apt install python3-tk`.
+
+## Screenshot
+
+```
++--------------------------------------------------+
+|  SecurePassGen - Password Generator & Checker     |
+|  +-- Generate ---+--- Check -------------------+  |
+|  |  Length: [16]                               |  |
+|  |  [x] Uppercase (A-Z)                        |  |
+|  |  [x] Lowercase (a-z)                        |  |
+|  |  [x] Digits (0-9)                           |  |
+|  |  [x] Symbols (!@#$...)                      |  |
+|  |  Count: [1]                                 |  |
+|  |  [Generate]                                 |  |
+|  |  +--------------------------------------+   |  |
+|  |  | kK9#mPx2@vL5nQr8                     |   |  |
+|  |  +--------------------------------------+   |  |
+|  |  [Copy All to Clipboard]                    |  |
+|  +--------------------------------------------+  |
++--------------------------------------------------+
+```
+
+## Features
+
+### Password Generator
+
+| Option | Default | Range |
+|--------|---------|-------|
+| Length | 16 | 4–128 |
+| Uppercase (A-Z) | On | toggle |
+| Lowercase (a-z) | On | toggle |
+| Digits (0-9) | On | toggle |
+| Symbols (!@#$...) | On | toggle |
+| Batch count | 1 | 1–50 |
+
+### Strength Checker
+
+Scoring rules:
+
+| Rule | Score |
+|------|-------|
+| Length ≥ 16 | +3 |
+| Length ≥ 12 | +2 |
+| Length ≥ 8 | +1 |
+| All 4 char types | +3 |
+| 3 char types | +2 |
+| 2 char types | +1 |
+| Common patterns (password, qwerty, 12345, etc.) | -2 |
+| Repeated characters (aaa, 111) | -1 |
+
+| Score | Rating | Color |
+|-------|--------|-------|
+| ≥5 | Excellent | Dark green |
+| 3–4 | Strong | Green |
+| 1–2 | Medium | Orange |
+| ≤0 | Weak | Red |
+
+## Dependencies
+
+**Zero external dependencies.** Uses only Python standard library:
+
+- `tkinter` — GUI toolkit (bundled with macOS/Windows Python)
+- `secrets` — cryptographically secure random number generation
+- `re`, `string` — regex and string utilities
+
+## Project Structure
+
+```
+SecurePassGen/
+├── main.py       # Main program (single file)
+├── README.md     # This file
+├── .gitignore
+└── LICENSE       # MIT
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE)
+
+---
+
 # SecurePassGen — 安全密码生成与强度检测工具
 
-**SecurePassGen** 是一款单文件、零依赖的桌面密码工具，支持：
-- 密码学安全的随机密码生成（使用 Python `secrets` 模块）
-- 密码强度检测（长度、字符多样性、常见模式识别）
-- 一键复制到剪贴板
-- 图形界面（tkinter），简洁直观
-- 批量生成，一次可生成 1-50 个密码
-- 中英双语界面
+单文件、零依赖的桌面密码工具。
+
+- **密码学安全**的随机密码生成（Python `secrets` 模块）
+- **密码强度检测**（长度、字符多样性、常见模式识别）
+- **一键复制**到剪贴板
+- **图形界面**（tkinter），简洁直观
+- **批量生成**，一次 1–50 个
 
 ## 快速开始
 
 ```bash
-# 克隆仓库
-git clone https://github.com/你的用户名/SecurePassGen.git
+git clone https://github.com/DBJ-6666/SecurePassGen.git
 cd SecurePassGen
-
-# 直接运行（需要 Python 3.6+）
 python3 main.py
 ```
 
-## 依赖
-
-**零外部依赖** — 仅使用 Python 标准库：
-- `tkinter` — 图形界面（macOS/Windows 自带，Linux 需 `sudo apt install python3-tk`）
-- `secrets` — 密码学安全随机数生成
-- `re`, `string` — 正则与字符串处理
+需要 **Python 3.6+**，零外部依赖。Linux 如缺 tkinter：`sudo apt install python3-tk`。
 
 ## 功能
 
 ### 密码生成
-- 长度：4-128 位可调（默认 16）
-- 字符类型：大写/小写/数字/符号，可自由组合
-- 批量：一次生成 1-50 个密码
+
+| 参数 | 默认值 | 范围 |
+|------|--------|------|
+| 长度 | 16 | 4–128 |
+| 大写字母 | ✅ | 开关 |
+| 小写字母 | ✅ | 开关 |
+| 数字 | ✅ | 开关 |
+| 符号 | ✅ | 开关 |
+| 批量数量 | 1 | 1–50 |
 
 ### 强度检测
-- 长度评分：≥16 位 +3 分，≥12 位 +2 分，≥8 位 +1 分
-- 字符多样性：4 类齐全 +3 分，3 类 +2 分，2 类 +1 分
-- 常见模式扣分：识别 password、qwerty、12345 等弱密码
-- 重复字符扣分：连续重复 3 次以上扣分
 
-| 总分 | 评级 | 颜色 |
+| 规则 | 分数 |
+|------|------|
+| 长度 ≥ 16 | +3 |
+| 长度 ≥ 12 | +2 |
+| 长度 ≥ 8 | +1 |
+| 4 类字符齐全 | +3 |
+| 3 类字符 | +2 |
+| 2 类字符 | +1 |
+| 常见弱密码模式 | -2 |
+| 重复字符 (aaa, 111) | -1 |
+
+| 分数 | 评级 | 颜色 |
 |------|------|------|
 | ≥5 | 极强 | 深绿 |
-| 3-4 | 强 | 绿色 |
-| 1-2 | 中等 | 橙色 |
+| 3–4 | 强 | 绿色 |
+| 1–2 | 中等 | 橙色 |
 | ≤0 | 弱 | 红色 |
 
 ## 许可证
 
-MIT License — 详见 [LICENSE](LICENSE)
+MIT — 详见 [LICENSE](LICENSE)
