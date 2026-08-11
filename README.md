@@ -7,6 +7,7 @@ A single-file, zero-dependency desktop password tool.
 - **One-click copy** to clipboard
 - **Clean GUI** built with tkinter
 - **Batch generation** — 1–50 passwords at once
+- **Bilingual UI** — English / 中文
 
 ## Quick Start
 
